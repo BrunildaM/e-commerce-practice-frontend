@@ -28,7 +28,7 @@ function App() {
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-    fetch("http://localhost:5000/users/bruna@email.com")
+    fetch(`http://localhost:5000/users/enkeled@email.com`)
       .then((res) => res.json())
       .then((userFromDb) => setUser(userFromDb));
   }, []);
@@ -45,18 +45,17 @@ function App() {
 
     fetch(`http://localhost:5000/orders/${id}`, {
       method: "DELETE",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.error) return;
+    });
+      // .then((res) => res.json())
+      // .then((data) => {
+      //   if (data.error) return;
 
-        // const userCopy = JSON.parse(JSON.stringify(user))
-        // user.orders = user.orders.filter(order => order.id !== id)
-        // setUser(userCopy)
+        const userCopy = JSON.parse(JSON.stringify(user))
+       let updatedOrder =  userCopy.orders.filter((order: Order) => order.id !== id)
+        setUser(updatedOrder)
 
-        setUser(data);
-      });
-  }
+        // setUser(data);
+      };
 
   return (
     <div className="App">
